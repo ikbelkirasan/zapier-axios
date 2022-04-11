@@ -4,10 +4,12 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "outDir": "./lib",
+    "outDir": "./dist",
     "strict": true,
     "sourceMap": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true
   },
   "include": ["./src"]
 }

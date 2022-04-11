@@ -1,15 +1,24 @@
-import axios, { AxiosRequestConfig } from "axios";
+import { ZObject } from "zapier-platform-core";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import axiosRetry, {
   isNetworkOrIdempotentRequestError,
   IAxiosRetryConfig,
 } from "axios-retry";
-import { ZObject } from "zapier-platform-core";
-import createZapierAdapter from "./adapter";
+import { createZapierAdapter } from "./adapter";
 
-const createAxiosInstance = (
+export type ZapierAxiosInstanceConfig = Omit<AxiosRequestConfig, "adapter"> &
+  IAxiosRetryConfig;
+
+export { AxiosInstance };
+
+export const createAxiosInstance = (
   z: ZObject,
-  config?: Omit<AxiosRequestConfig, "adapter"> & IAxiosRetryConfig
-) => {
+  config?: ZapierAxiosInstanceConfig
+): AxiosInstance => {
+  if (!z) {
+    throw new Error("z object is required");
+  }
+
   const {
     retries,
     retryCondition,
@@ -37,5 +46,3 @@ const createAxiosInstance = (
 
   return instance;
 };
-
-export default createAxiosInstance;

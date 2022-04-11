@@ -3,7 +3,23 @@ import buildFullPath from "axios/lib/core/buildFullPath";
 import settle from "axios/lib/core/settle";
 import { HttpMethod, HttpRequestOptions, ZObject } from "zapier-platform-core";
 
-const createZapierAdapter =
+type ZapierHTTPOptions = HttpRequestOptions & {
+  url: string;
+  raw?: true;
+};
+
+const parseHeaders = (headers: any) => {
+  return [...(headers as any).entries()].reduce(
+    (result: any, current: [any, any]) => {
+      const [name, value] = current;
+      result[name] = value;
+      return result;
+    },
+    {}
+  );
+};
+
+export const createZapierAdapter =
   (z: ZObject) =>
   (config: AxiosRequestConfig): AxiosPromise<any> => {
     return new Promise(async (resolve, reject) => {
@@ -19,10 +35,7 @@ const createZapierAdapter =
             Buffer.from(`${config.auth.username}:${config.auth.password}`);
         }
 
-        const options: HttpRequestOptions & {
-          url: string;
-          raw?: true;
-        } = {
+        const options: ZapierHTTPOptions = {
           url,
           method: config.method as HttpMethod,
           body: config.data,
@@ -35,14 +48,7 @@ const createZapierAdapter =
         const response = {
           data: rawResponse.content,
           status: rawResponse.status,
-          headers: [...(rawResponse.headers as any).entries()].reduce(
-            (result: any, current: [any, any]) => {
-              const [name, value] = current;
-              result[name] = value;
-              return result;
-            },
-            {}
-          ),
+          headers: parseHeaders(rawResponse.headers),
           config: config,
         };
 
@@ -52,5 +58,3 @@ const createZapierAdapter =
       }
     });
   };
-
-export default createZapierAdapter;

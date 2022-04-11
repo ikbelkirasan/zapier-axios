@@ -1,11 +1,11 @@
-import zapier, { Bundle, ZObject } from "zapier-platform-core";
-import createAxiosInstance from "../src";
 import nock from "nock";
+import zapier, { Bundle, ZObject } from "zapier-platform-core";
+import { createAxiosInstance } from "../src";
 
 describe("zapier-axios", () => {
   it("should run", async () => {
     const appTester = zapier.createAppTester({});
-    const fn = async (z: ZObject, bundle: Bundle) => {
+    const perform = async (z: ZObject, bundle: Bundle) => {
       const spy = jest.spyOn(z, "request");
 
       const axios = createAxiosInstance(z, {
@@ -48,6 +48,6 @@ describe("zapier-axios", () => {
         name: "Ikbel",
       });
     };
-    await appTester(fn, {});
+    await appTester(perform, {});
   });
 });
