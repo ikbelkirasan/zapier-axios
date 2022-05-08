@@ -702,6 +702,11 @@ axios-retry@^3.2.4:
     "@babel/runtime" "^7.15.4"
     is-retry-allowed "^2.2.0"
 
+axios-timed@^1.0.0:
+  version "1.0.0"
+  resolved "http://localhost:4873/axios-timed/-/axios-timed-1.0.0.tgz#82dd10e2975b5a149762233ec8bc20c0be7ce415"
+  integrity sha512-d1KfXMhdA7iZXGWeYU4w7K7Vc+cIK4DSD0erp8QYqj5PdS1Tme03C5IHHY178nxwpCNFoXcXPcuTdagwgpscrQ==
+
 axios@^0.26.1:
   version "0.26.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"

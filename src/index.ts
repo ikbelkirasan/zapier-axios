@@ -1,5 +1,6 @@
 import { ZObject } from "zapier-platform-core";
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axiosTimed from "axios-timed";
 import axiosRetry, {
   isNetworkOrIdempotentRequestError,
   IAxiosRetryConfig,
@@ -31,6 +32,8 @@ export const createAxiosInstance = (
     adapter: createZapierAdapter(z),
     ...axiosConfig,
   });
+
+  axiosTimed(instance);
 
   // Retry logic
   axiosRetry(instance, {
