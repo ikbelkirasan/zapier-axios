@@ -42,6 +42,7 @@ export const createZapierAdapter =
           params: config.params,
           headers: headers as any,
           skipThrowForStatus: true,
+          redirect: config.maxRedirects === 0 ? "manual" : "follow",
         };
 
         const rawResponse = await z.request(options);
