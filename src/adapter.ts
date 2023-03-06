@@ -32,7 +32,9 @@ export const createZapierAdapter =
         if (config.auth) {
           headers.Authorization =
             "Basic " +
-            Buffer.from(`${config.auth.username}:${config.auth.password}`);
+            Buffer.from(
+              `${config.auth.username}:${config.auth.password}`
+            ).toString("base64");
         }
 
         const options: ZapierHTTPOptions = {
